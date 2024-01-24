@@ -2,12 +2,15 @@ import pickle
 import os
 import logging
 
-logging.basicConfig(
-    filename='zmones.log', 
-    level=logging.DEBUG,
-    encoding='utf-8',
-    format='%(asctime)s / %(name)s / %(levelname)s / %(message)s'
-)
+def create_logger(file = __name__ + '.log', name=__name__, level=1):
+    logger = logging.getlogger(name)
+    logger.setLevel(level)
+    formatter = logging.Formatter'%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_handler = logging.FileHandler(file)
+    file_handler.setLevel(level)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    return logger
 
 class Zmogus:
     def __init__(self, vardas, amzius):
@@ -55,3 +58,4 @@ if __name__ == "__main__":
     print('---[ Visi zmones ]---')
     for zmogus in zmones:
         print(zmogus)
+
